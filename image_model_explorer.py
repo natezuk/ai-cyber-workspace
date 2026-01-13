@@ -48,7 +48,8 @@ def load_sample_images(dataset_name, split, num_samples=20):
         
         elif dataset_name == "imagenet-1k":
             # Using a subset for faster loading
-            dataset = load_dataset("imagenet-1k", split=split, streaming=True)
+            dataset = load_dataset("ILSVRC/imagenet-1k", split=split, streaming=True,
+                                    token=st.secrets.get('HUGGINGFACE_TOKEN', ''))
             images = []
             for i, img in enumerate(dataset):
                 if i >= num_samples:
@@ -64,7 +65,7 @@ def load_sample_images(dataset_name, split, num_samples=20):
 st.sidebar.header("Dataset Selection")
 dataset_choice = st.sidebar.selectbox(
     "Choose a dataset:",
-    ["cifar10", "food101", "Upload your own image"],
+    ["cifar10", "imagenet-1k", "Upload your own image"],
     help="Different datasets to explore model performance"
 )
 
@@ -96,7 +97,7 @@ with col1:
     else:
         # Load dataset samples
         with st.spinner(f"Loading {dataset_choice} samples..."):
-            samples = load_sample_images(dataset_choice, "train", num_samples=20)
+            samples = load_sample_images(dataset_choice, "test", num_samples=20)
         
         if samples:
             sample_idx = st.slider(
@@ -114,12 +115,12 @@ with col1:
     
     # Display selected image
     if selected_image:
-        st.image(selected_image, caption="Selected Image", use_container_width=True)
+        st.image(selected_image, caption="Selected Image", width="content")
         if true_label:
             st.info(f"**{true_label}**")
         
         # Classify button
-        if st.button("🤖 Classify Image", type="primary", use_container_width=True):
+        if st.button("🤖 Classify Image", type="primary", width="content"):
             with st.spinner("Analyzing image..."):
                 predictions = query_model(image_bytes)
                 
