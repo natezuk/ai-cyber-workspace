@@ -33,8 +33,9 @@ across different models and observe patterns in representation.
 
 
 client = InferenceClient(
-    provider="fal-ai",
-    api_key=os.environ["HUGGINGFACE_TOKEN"],
+    provider="auto",
+    api_key=st.secrets.get('HUGGINGFACE_TOKEN', '')
+    #api_key=os.environ["HUGGINGFACE_TOKEN"],
 )
 
 # Model loading headers
@@ -46,9 +47,10 @@ st.sidebar.success("✓ API token loaded from .env file")
 
 # Model selection
 MODELS = {
-    "Stable Diffusion 3.5": "stabilityai/stable-diffusion-3.5-medium",
-    "SDXL-Turbo": "stabilityai/sdxl-turbo",
-    "Flux-Schnell": "black-forest-labs/FLUX.1-schnell"
+    #"Stable Diffusion 3.5": "stabilityai/stable-diffusion-3.5-medium",
+    #"SDXL-Turbo": "stabilityai/sdxl-turbo",
+    "Flux-Schnell": "black-forest-labs/FLUX.1-schnell",
+    "Stable Diffusion 1.0": "stabilityai/stable-diffusion-xl-base-1.0"
 }
 
 selected_models = st.sidebar.multiselect(
@@ -114,7 +116,7 @@ user_prompt = st.text_input(
 # Generation button
 col1, col2, col3 = st.columns([1, 1, 2])
 with col1:
-    generate_button = st.button("🎨 Generate Images", type="primary", use_container_width=True)
+    generate_button = st.button("🎨 Generate Images", type="primary", width="content")
 with col2:
     num_images = st.selectbox("Images per model:", [1, 2, 3], index=0)
 
@@ -137,6 +139,8 @@ def query_model(model_id, prompt):
             prompt,
             model=model_id,
         )
+
+        return image, None
         # response = requests.post(API_URL, headers=headers, json=payload, timeout=60)
         
         # if response.status_code == 503:
@@ -172,7 +176,7 @@ if generate_button:
                         image, error = query_model(model_id, user_prompt)
                         
                         if image:
-                            st.image(image, use_container_width=True)
+                            st.image(image, width="content")
                         else:
                             st.error(error)
                         
