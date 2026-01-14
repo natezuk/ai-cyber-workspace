@@ -50,14 +50,15 @@ def load_sample_images(dataset_name, split, num_samples=20):
             # Using a subset for faster loading
             dataset = load_dataset("ILSVRC/imagenet-1k", split=split, streaming=True,
                                     token=st.secrets.get('HUGGINGFACE_TOKEN', ''))
-            images = random.sample(list(dataset), min(num_samples, len(dataset)))
-            return [(img['image'], f"True label: {img['label']}") for img in images]
-            # images = []
-            # for i, img in enumerate(dataset):
-            #     if i >= num_samples:
-            #         break
-            #     images.append((img['image'], f"True label: {img['label']}"))
-            # return images
+            # images = random.sample(list(dataset), min(num_samples, len(dataset)))
+            # return [(img['image'], f"True label: {img['label']}") for img in images]
+            images = []
+            shuffled_dataset = dataset.shuffle()
+            for i, img in enumerate(shuffled_dataset):
+                if i >= num_samples:
+                    break
+                images.append((img['image'], f"True label: {img['label']}"))
+            return images
         
     except Exception as e:
         st.error(f"Error loading dataset: {e}")
