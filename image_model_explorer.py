@@ -99,7 +99,7 @@ with col1:
     else:
         # Load dataset samples
         with st.spinner(f"Loading {dataset_choice} samples..."):
-            samples = load_sample_images(dataset_choice, "test", num_samples=20)
+            samples = load_sample_images(dataset_choice, "test", num_samples=30)
         
         if samples:
             sample_idx = st.slider(
