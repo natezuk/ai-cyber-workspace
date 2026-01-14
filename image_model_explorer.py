@@ -53,8 +53,7 @@ def load_sample_images(dataset_name, split, num_samples=20):
             # images = random.sample(list(dataset), min(num_samples, len(dataset)))
             # return [(img['image'], f"True label: {img['label']}") for img in images]
             images = []
-            shuffled_dataset = dataset.shuffle()
-            for i, img in enumerate(shuffled_dataset):
+            for i, img in enumerate(dataset):
                 if i >= num_samples:
                     break
                 images.append((img['image'], f"True label: {img['label']}"))
