@@ -33,7 +33,7 @@ across different models and observe patterns in representation.
 
 
 client = InferenceClient(
-    provider="auto",
+    provider="hf-inference",
     api_key=st.secrets.get('HUGGINGFACE_TOKEN', '')
     #api_key=os.environ["HUGGINGFACE_TOKEN"],
 )
@@ -49,12 +49,12 @@ st.sidebar.success("✓ API token loaded from .env file")
 MODELS = {
     #"Stable Diffusion 3.5": "stabilityai/stable-diffusion-3.5-medium",
     #"SDXL-Turbo": "stabilityai/sdxl-turbo",
-    "Flux-Schnell": "black-forest-labs/FLUX.1-schnell",
+    "Flux-Schnell": "black-forest-labs/FLUX.1-dev",
     "Stable Diffusion 1.0": "stabilityai/stable-diffusion-xl-base-1.0"
 }
 
 selected_models = st.sidebar.multiselect(
-    "Select Models to Compare (2-3 recommended)",
+    "Select Models",
     list(MODELS.keys()),
     default=list(MODELS.keys())[:2]
 )
