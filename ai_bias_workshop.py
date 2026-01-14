@@ -205,14 +205,6 @@ if generate_button:
             6. **Data origins**: Why do you think the models produce these particular representations?
             """)
         
-        # Notes section
-        st.subheader("📝 Your Observations")
-        notes = st.text_area(
-            "Record your observations here:",
-            placeholder="What patterns did you notice? Were there any surprises?",
-            height=150
-        )
-
 # Footer with educational context
 st.markdown("---")
 with st.expander("ℹ️ About This Workshop"):
@@ -234,38 +226,4 @@ with st.expander("ℹ️ About This Workshop"):
     - Different models may show different biases based on their training data
     - Results can vary between generations due to randomness
     - These biases have real-world consequences when AI is deployed
-    
-    ### Resources
-    - [Hugging Face Model Cards](https://huggingface.co/docs/hub/model-cards) - Learn about model documentation
-    - [AI Fairness](https://www.ajl.org/) - Algorithmic Justice League
-    - [Data Nutrition Project](https://datanutrition.org/) - Understanding dataset health
-    """)
-
-# Tips for instructors
-with st.expander("👨‍🏫 Tips for Instructors"):
-    st.markdown("""
-    **Running the workshop:**
-    
-    1. **Setup (5 min)**: Instructor sets up .env file with API token once for entire class
-    2. **Demo (5 min)**: Show one example prompt and discuss what to observe
-    3. **Exploration (20-30 min)**: Students test different prompts, working in pairs
-    4. **Small group (10 min)**: Groups discuss patterns they observed
-    5. **Class discussion (15-20 min)**: Share findings and discuss implications
-    
-    **Effective prompts for demonstration:**
-    - Start with neutral-seeming prompts ("a person", "a professional")
-    - Move to occupational stereotypes ("doctor" vs "nurse")
-    - Compare specific vs. general prompts
-    - Try culturally-specific concepts ("wedding", "traditional clothing")
-    
-    **Discussion facilitation:**
-    - Ask students to describe what they see before jumping to conclusions
-    - Connect observations to real-world AI applications
-    - Discuss responsibility: whose job is it to address these biases?
-    - Explore limitations: what CAN'T these models represent well?
-    
-    **Technical setup:**
-    - Create `.env` file with: `HUGGINGFACE_TOKEN=your_token_here`
-    - One token can be shared for the entire class
-    - Free tier tokens work fine for workshop use
     """)
